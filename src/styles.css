@@ -41,6 +41,17 @@
   --color-sticky-green: var(--sticky-green);
   --color-sticky-peach: var(--sticky-peach);
   --color-rising: var(--rising);
+  --color-violet: var(--violet);
+  --color-violet-soft: var(--violet-soft);
+  --color-coral: var(--coral);
+  --color-coral-soft: var(--coral-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-sky: var(--sky);
+  --color-sky-soft: var(--sky-soft);
+  --color-pos: var(--pos);
+  --color-neu: var(--neu);
+  --color-neg: var(--neg);
   --font-display: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
 }
@@ -77,6 +88,18 @@
   --sticky-green: oklch(0.95 0.07 150);
   --sticky-peach: oklch(0.93 0.06 50);
   --rising: oklch(0.78 0.15 60);
+
+  --violet: oklch(0.66 0.18 290);
+  --violet-soft: oklch(0.96 0.04 290);
+  --coral: oklch(0.68 0.19 25);
+  --coral-soft: oklch(0.96 0.04 25);
+  --amber: oklch(0.78 0.16 75);
+  --amber-soft: oklch(0.97 0.06 90);
+  --sky: oklch(0.74 0.13 230);
+  --sky-soft: oklch(0.96 0.04 230);
+  --pos: oklch(0.72 0.16 160);
+  --neu: oklch(0.78 0.06 250);
+  --neg: oklch(0.68 0.19 25);
 }
 
 @keyframes float {
