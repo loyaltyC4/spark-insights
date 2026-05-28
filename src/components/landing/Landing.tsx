@@ -2,64 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { Sparkles, Check, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PlatformPicker } from "@/components/landing/PlatformPicker";
+import { ScrollFeatureShowcase } from "@/components/landing/ScrollFeatureShowcase";
 import heroDoodle from "@/assets/doodles/hero-scene.png";
-import phoneDoodle from "@/assets/doodles/phone-hearts.png";
-import brainDoodle from "@/assets/doodles/sentiment-brain.png";
-import personasDoodle from "@/assets/doodles/personas.png";
-import ideasDoodle from "@/assets/doodles/ideas-bulb.png";
-import rocketDoodle from "@/assets/doodles/rocket-growth.png";
-import trophyDoodle from "@/assets/doodles/trophy-streak.png";
-
-const FEATURES = [
-  {
-    img: brainDoodle,
-    tag: "Sentiment AI",
-    title: "Feel what your audience feels",
-    body: "Every comment, DM and mention decoded into joy, curiosity, hype or concern — so you stop guessing how a post landed.",
-    bg: "bg-violet-soft",
-    chip: "text-violet",
-  },
-  {
-    img: personasDoodle,
-    tag: "Audience personas",
-    title: "Meet the humans behind the numbers",
-    body: "We cluster your followers into living personas: the night-owl creator, the weekend shopper, the loyal super-fan.",
-    bg: "bg-coral-soft",
-    chip: "text-coral",
-  },
-  {
-    img: ideasDoodle,
-    tag: "Content Lab",
-    title: "Post ideas that actually convert",
-    body: "AI mines what worked for you and your niche, then hands you ready-to-shoot ideas with hooks, captions and best post times.",
-    bg: "bg-amber-soft",
-    chip: "text-amber",
-  },
-  {
-    img: rocketDoodle,
-    tag: "Growth tracking",
-    title: "See growth as a story, not a chart",
-    body: "Streaks, milestones and weekly recaps that make your progress feel earned — not just plotted.",
-    bg: "bg-sky-soft",
-    chip: "text-sky",
-  },
-  {
-    img: phoneDoodle,
-    tag: "Live scraping",
-    title: "Real data, every refresh",
-    body: "Built on enterprise scrapers — stories, highlights, posts, comments and hashtags pulled fresh, never cached stale.",
-    bg: "bg-accent",
-    chip: "text-primary",
-  },
-  {
-    img: trophyDoodle,
-    tag: "Gamified",
-    title: "Make analytics a daily ritual",
-    body: "Quests, levels and badges turn checking insights from a chore into the most satisfying minute of your morning.",
-    bg: "bg-sticky-green",
-    chip: "text-mint-600",
-  },
-];
 
 const PLANS = [
   {
@@ -217,46 +161,8 @@ export function Landing() {
         </div>
       </section>
 
-      {/* Features */}
-      <section id="features" className="mx-auto max-w-[1200px] px-5 py-20 md:px-8 md:py-28">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-medium uppercase tracking-widest text-primary">
-            Everything you need
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
-            One dashboard. Six superpowers.
-          </h2>
-          <p className="mt-3 text-muted-foreground">
-            Drawn by hand, powered by AI. Each tile is a tool your competitors
-            haven't figured out yet.
-          </p>
-        </div>
-
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((f) => (
-            <article
-              key={f.title}
-              className="group relative overflow-hidden rounded-3xl border bg-card p-6 transition-all hover:-translate-y-1 hover:shadow-[0_20px_50px_-20px_oklch(0.27_0.05_185/0.25)]"
-            >
-              <div className={`mb-4 grid h-40 place-items-center rounded-2xl ${f.bg}`}>
-                <img
-                  src={f.img}
-                  alt=""
-                  loading="lazy"
-                  width={768}
-                  height={768}
-                  className="h-32 w-32 object-contain transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-              <div className={`text-[11px] font-semibold uppercase tracking-widest ${f.chip}`}>
-                {f.tag}
-              </div>
-              <h3 className="mt-2 text-lg font-semibold tracking-tight">{f.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      {/* Features — scroll showcase */}
+      <ScrollFeatureShowcase />
 
       {/* How it works */}
       <section id="how" className="border-y bg-card/40">
