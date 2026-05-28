@@ -5,57 +5,6 @@ import { PlatformPicker } from "@/components/landing/PlatformPicker";
 import { ScrollFeatureShowcase } from "@/components/landing/ScrollFeatureShowcase";
 import heroDoodle from "@/assets/doodles/hero-scene.png";
 
-const FEATURES = [
-  {
-    img: brainDoodle,
-    tag: "Sentiment AI",
-    title: "Feel what your audience feels",
-    body: "Every comment, DM and mention decoded into joy, curiosity, hype or concern — so you stop guessing how a post landed.",
-    bg: "bg-violet-soft",
-    chip: "text-violet",
-  },
-  {
-    img: personasDoodle,
-    tag: "Audience personas",
-    title: "Meet the humans behind the numbers",
-    body: "We cluster your followers into living personas: the night-owl creator, the weekend shopper, the loyal super-fan.",
-    bg: "bg-coral-soft",
-    chip: "text-coral",
-  },
-  {
-    img: ideasDoodle,
-    tag: "Content Lab",
-    title: "Post ideas that actually convert",
-    body: "AI mines what worked for you and your niche, then hands you ready-to-shoot ideas with hooks, captions and best post times.",
-    bg: "bg-amber-soft",
-    chip: "text-amber",
-  },
-  {
-    img: rocketDoodle,
-    tag: "Growth tracking",
-    title: "See growth as a story, not a chart",
-    body: "Streaks, milestones and weekly recaps that make your progress feel earned — not just plotted.",
-    bg: "bg-sky-soft",
-    chip: "text-sky",
-  },
-  {
-    img: phoneDoodle,
-    tag: "Live scraping",
-    title: "Real data, every refresh",
-    body: "Built on enterprise scrapers — stories, highlights, posts, comments and hashtags pulled fresh, never cached stale.",
-    bg: "bg-accent",
-    chip: "text-primary",
-  },
-  {
-    img: trophyDoodle,
-    tag: "Gamified",
-    title: "Make analytics a daily ritual",
-    body: "Quests, levels and badges turn checking insights from a chore into the most satisfying minute of your morning.",
-    bg: "bg-sticky-green",
-    chip: "text-mint-600",
-  },
-];
-
 const PLANS = [
   {
     name: "Free",
