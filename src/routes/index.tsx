@@ -1,22 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Dashboard } from "@/components/dashboard/Dashboard";
+import { Landing } from "@/components/landing/Landing";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Activity Mint — Fresh Instagram insights" },
+      { title: "Activity Mint — AI social insights you'll actually open" },
       {
         name: "description",
         content:
-          "AI-powered Instagram sentiment, audience personas, and creative post ideas. Track your @handle and see what your community actually feels.",
+          "Track Instagram, Facebook, Reddit and LinkedIn in one playful, gamified dashboard. Sentiment, personas, AI post ideas — built on live scrapers.",
       },
-      { property: "og:title", content: "Activity Mint — Fresh Instagram insights" },
+      { property: "og:title", content: "Activity Mint — Freshly minted social insights" },
       {
         property: "og:description",
         content:
-          "AI-powered Instagram sentiment, audience personas, and creative post ideas.",
+          "The social dashboard creators actually open every morning. Sentiment, personas, AI post ideas, streaks.",
       },
     ],
   }),
-  component: Dashboard,
+  component: Landing,
 });
