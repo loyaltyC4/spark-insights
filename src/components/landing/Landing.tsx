@@ -161,46 +161,8 @@ export function Landing() {
         </div>
       </section>
 
-      {/* Features */}
-      <section id="features" className="mx-auto max-w-[1200px] px-5 py-20 md:px-8 md:py-28">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-medium uppercase tracking-widest text-primary">
-            Everything you need
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
-            One dashboard. Six superpowers.
-          </h2>
-          <p className="mt-3 text-muted-foreground">
-            Drawn by hand, powered by AI. Each tile is a tool your competitors
-            haven't figured out yet.
-          </p>
-        </div>
-
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((f) => (
-            <article
-              key={f.title}
-              className="group relative overflow-hidden rounded-3xl border bg-card p-6 transition-all hover:-translate-y-1 hover:shadow-[0_20px_50px_-20px_oklch(0.27_0.05_185/0.25)]"
-            >
-              <div className={`mb-4 grid h-40 place-items-center rounded-2xl ${f.bg}`}>
-                <img
-                  src={f.img}
-                  alt=""
-                  loading="lazy"
-                  width={768}
-                  height={768}
-                  className="h-32 w-32 object-contain transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-              <div className={`text-[11px] font-semibold uppercase tracking-widest ${f.chip}`}>
-                {f.tag}
-              </div>
-              <h3 className="mt-2 text-lg font-semibold tracking-tight">{f.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      {/* Features — scroll showcase */}
+      <ScrollFeatureShowcase />
 
       {/* How it works */}
       <section id="how" className="border-y bg-card/40">
