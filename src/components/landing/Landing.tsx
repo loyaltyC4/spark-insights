@@ -2,13 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { Sparkles, Check, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PlatformPicker } from "@/components/landing/PlatformPicker";
+import { ScrollFeatureShowcase } from "@/components/landing/ScrollFeatureShowcase";
 import heroDoodle from "@/assets/doodles/hero-scene.png";
-import phoneDoodle from "@/assets/doodles/phone-hearts.png";
-import brainDoodle from "@/assets/doodles/sentiment-brain.png";
-import personasDoodle from "@/assets/doodles/personas.png";
-import ideasDoodle from "@/assets/doodles/ideas-bulb.png";
-import rocketDoodle from "@/assets/doodles/rocket-growth.png";
-import trophyDoodle from "@/assets/doodles/trophy-streak.png";
 
 const FEATURES = [
   {
