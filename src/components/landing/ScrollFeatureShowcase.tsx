@@ -75,7 +75,7 @@ const FEATURES: Feature[] = [
 
 export function ScrollFeatureShowcase() {
   const [active, setActive] = useState(0);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
