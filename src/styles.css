@@ -52,9 +52,15 @@
   --color-pos: var(--pos);
   --color-neu: var(--neu);
   --color-neg: var(--neg);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-hairline: var(--hairline);
   --font-display: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 
 :root {
   --radius: 0.75rem;
@@ -100,6 +106,11 @@
   --pos: oklch(0.72 0.16 160);
   --neu: oklch(0.78 0.06 250);
   --neg: oklch(0.68 0.19 25);
+
+  /* Editorial surfaces */
+  --paper: oklch(0.985 0.006 95);   /* cream base */
+  --ink: oklch(0.14 0.01 260);
+  --hairline: oklch(0.91 0.005 260);
 }
 
 @keyframes float {
@@ -115,9 +126,15 @@
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
 
 .animate-float { animation: float 6s ease-in-out infinite; }
 .animate-entrance { animation: entrance 0.7s cubic-bezier(0.19, 1, 0.22, 1) both; }
+.animate-rise { animation: entrance 0.45s cubic-bezier(0.19, 1, 0.22, 1) both; }
+
 .bg-mesh {
   background: linear-gradient(-45deg,
     oklch(0.98 0.025 175),
@@ -126,6 +143,56 @@
     oklch(0.99 0.02 90));
   background-size: 400% 400%;
   animation: drift 18s ease infinite;
+}
+
+/* Editorial surface system */
+.surface-paper {
+  background: var(--paper);
+}
+.surface-card {
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.6) inset,
+    0 1px 2px oklch(0 0 0 / 0.03),
+    0 8px 24px -16px oklch(0 0 0 / 0.08);
+}
+.surface-feature {
+  background:
+    radial-gradient(120% 80% at 0% 0%, oklch(0.97 0.06 175 / 0.55), transparent 60%),
+    radial-gradient(80% 60% at 100% 100%, oklch(0.96 0.05 90 / 0.5), transparent 60%),
+    var(--card);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 24px 60px -32px oklch(0.4 0.1 180 / 0.18);
+}
+.surface-ink {
+  background: oklch(0.18 0.01 260);
+  color: oklch(0.97 0 0);
+  border: 1px solid oklch(1 0 0 / 0.06);
+}
+
+.font-serif { font-family: var(--font-serif); font-feature-settings: "ss01"; }
+.text-display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+.eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* paper grid background — subtle editorial texture */
+.paper-grid {
+  background-image:
+    linear-gradient(var(--hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: -1px -1px;
 }
 
 @layer base {
