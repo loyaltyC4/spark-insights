@@ -3,53 +3,70 @@ import type { PaneKey, TimeRange } from "@/lib/mock-dashboard";
 import { profileData } from "@/lib/mock-dashboard";
 import { TopBar } from "./TopBar";
 import { Sidebar } from "./Sidebar";
-import { PaneHeader } from "./PaneHeader";
-import { KpiCards } from "./KpiCards";
-import { TodaysInsights } from "./TodaysInsights";
-import { DailyQuests } from "./DailyQuests";
+import { EditorialHeader } from "./shared/EditorialHeader";
+import { ComingSoon } from "./ComingSoon";
+
+// Pulse (redesigned)
+import { HeadlineInsight } from "./pulse/HeadlineInsight";
+import { KpiChips } from "./pulse/KpiChips";
+import { TodaysMove } from "./pulse/TodaysMove";
+import { BrandDNAStrip } from "./pulse/BrandDNAStrip";
+import { BestPostBreakdown } from "./BestPostBreakdown";
+
+// Studio
+import { Studio } from "./studio/Studio";
+
+// Existing
 import { ActiveTimeHeatmap } from "./ActiveTimeHeatmap";
 import { AudienceMoodDonut } from "./AudienceMoodDonut";
 import { FollowerGrowth } from "./FollowerGrowth";
 import { Personas } from "./Personas";
-import { BestPostBreakdown } from "./BestPostBreakdown";
-import { RankedPosts } from "./RankedPosts";
-import { AIPostIdeasLocked } from "./AIPostIdeasLocked";
-import { CreativeCatalysts } from "./CreativeCatalysts";
-import { VibeCloud } from "./VibeCloud";
+import { TopCommenters } from "./TopCommenters";
+import { InterestOverlap } from "./InterestOverlap";
 import {
   SentimentBreakdown,
   SentimentQuotes,
   SentimentThemes,
 } from "./Sentiment";
-import { TopCommenters } from "./TopCommenters";
-import { InterestOverlap } from "./InterestOverlap";
+import { VibeCloud } from "./VibeCloud";
 import { CompetitorsLocked } from "./CompetitorsLocked";
 import { Rewards } from "./Rewards";
 
-const META: Record<PaneKey, { title: string; sub: string }> = {
+const META: Record<PaneKey, { eyebrow: string; title: string; lede?: string }> = {
+  studio: {
+    eyebrow: "Create",
+    title: "Studio",
+    lede: "Pick a recipe, drop a topic. Mint drafts carousels and Reels calibrated to your brand voice and your audience's signals.",
+  },
+  scripts: { eyebrow: "Create", title: "Script Lab" },
+  calendar: { eyebrow: "Create", title: "Calendar" },
   pulse: {
+    eyebrow: "Understand",
     title: "Pulse",
-    sub: "Your daily snapshot — are we winning today?",
+    lede: "The one read-out that tells you what's working — and what to do about it today.",
   },
   audience: {
-    title: "Audience & Mood",
-    sub: "How your followers feel and when they show up.",
+    eyebrow: "Understand",
+    title: "Audience",
+    lede: "Who shows up, when they're awake, and how they feel about your work.",
   },
-  content: {
-    title: "Content Lab",
-    sub: "What worked, why, and what to make next.",
-  },
+  content: { eyebrow: "Understand", title: "Content" },
   sentiment: {
+    eyebrow: "Understand",
     title: "Sentiment",
-    sub: "What people actually feel — beyond the like count.",
+    lede: "What people actually feel — beyond the like count.",
   },
+  trends: { eyebrow: "Outperform", title: "Trends" },
+  adlib: { eyebrow: "Outperform", title: "Ad Library" },
   competitors: {
+    eyebrow: "Outperform",
     title: "Competitors",
-    sub: "Benchmark, learn, and find the gaps to own.",
+    lede: "Benchmark, learn, and find the gaps to own.",
   },
   rewards: {
+    eyebrow: "You",
     title: "Rewards",
-    sub: "Streaks, levels and badges — your reason to come back.",
+    lede: "Streaks, levels and badges — your reason to come back.",
   },
 };
 
@@ -58,24 +75,32 @@ export function Dashboard() {
   const [pane, setPane] = useState<PaneKey>("pulse");
   const meta = META[pane];
 
+  // Studio gets its own header inside the component
+  const showHeader = pane !== "studio";
+
   return (
     <div className="min-h-screen bg-background">
       <TopBar handle={profileData.handle} range={range} onRangeChange={setRange} />
       <div className="mx-auto flex max-w-[1400px]">
         <Sidebar active={pane} onChange={setPane} />
         <main className="flex-1 px-5 pb-24 pt-8 md:px-8">
-          <div key={pane} className="animate-entrance">
-            <PaneHeader title={meta.title} subtitle={meta.sub} />
+          <div key={pane} className="animate-rise">
+            {showHeader && (
+              <EditorialHeader
+                eyebrow={meta.eyebrow}
+                title={meta.title}
+                lede={meta.lede}
+              />
+            )}
+
+            {pane === "studio" && <Studio />}
 
             {pane === "pulse" && (
-              <div className="space-y-5">
-                <KpiCards />
-                <div className="grid gap-5 lg:grid-cols-3">
-                  <div className="lg:col-span-2">
-                    <TodaysInsights />
-                  </div>
-                  <DailyQuests />
-                </div>
+              <div className="space-y-6">
+                <HeadlineInsight />
+                <KpiChips />
+                <TodaysMove onOpen={setPane} />
+                <BrandDNAStrip />
                 <BestPostBreakdown />
               </div>
             )}
@@ -101,18 +126,6 @@ export function Dashboard() {
               </div>
             )}
 
-            {pane === "content" && (
-              <div className="space-y-5">
-                <BestPostBreakdown />
-                <div className="grid gap-5 lg:grid-cols-2">
-                  <RankedPosts />
-                  <AIPostIdeasLocked />
-                </div>
-                <CreativeCatalysts />
-                <VibeCloud />
-              </div>
-            )}
-
             {pane === "sentiment" && (
               <div className="space-y-5">
                 <SentimentBreakdown />
@@ -124,13 +137,39 @@ export function Dashboard() {
               </div>
             )}
 
-            {pane === "competitors" && (
-              <div className="space-y-5">
-                <CompetitorsLocked />
-              </div>
-            )}
-
+            {pane === "competitors" && <CompetitorsLocked />}
             {pane === "rewards" && <Rewards />}
+
+            {pane === "scripts" && (
+              <ComingSoon
+                title="Script Lab"
+                blurb="Beat-by-beat scripts in your voice — Hormozi, Brunson, TikTok-native and Gary Vee frameworks, calibrated to your last 30 posts."
+              />
+            )}
+            {pane === "calendar" && (
+              <ComingSoon
+                title="Calendar"
+                blurb="A weekly board with peak-time slots, drag-to-schedule and one-click queue from Studio."
+              />
+            )}
+            {pane === "trends" && (
+              <ComingSoon
+                title="Trends"
+                blurb="Rising hooks, sounds and formats in your niche — refreshed every 4 hours from live scraping."
+              />
+            )}
+            {pane === "adlib" && (
+              <ComingSoon
+                title="Ad Library"
+                blurb="Reverse-engineer the ads your rivals are paying to run. Filter by hook, format and offer."
+              />
+            )}
+            {pane === "content" && (
+              <ComingSoon
+                title="Content"
+                blurb="Deep post analytics live inside Pulse and Studio now."
+              />
+            )}
           </div>
         </main>
       </div>
