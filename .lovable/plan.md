@@ -1,76 +1,128 @@
-# Plan: Activity Mint Dashboard (v1, dashboard-only)
 
-Focus this build on the **dashboard surface only** — no landing hero, no pricing section yet. The dashboard becomes the home route (`/`) so it's the first thing previewed. Mocked data only; AI generation and real scraper wiring come in later passes.
+# Activity Mint — Studio Dashboard Redesign
 
-## Layout map
+Goal: turn the current "numbers dashboard" into a Higgsfield-style **content studio** that feels editorial, premium, and actionable — cohesive with the landing page's Notion-doodle + mint aesthetic, but elevated for daily power-use.
 
-Single-page dashboard, sticky top bar + bento grid below.
+## 1. Design language (cohesive with landing)
+
+**Carry over from landing:**
+- Mint/cream palette, oklch tokens already in `styles.css`
+- Geist typography, generous tracking on eyebrows
+- Hand-drawn doodle accents (sparingly — as personality, not chrome)
+
+**New for studio (higher-end, less "AI-slop"):**
+- **Editorial type scale**: serif display (Instrument Serif) for section H1s paired with Geist body — the magazine feel competitors don't have
+- **Surface system**: 3 tiers — `paper` (cream base), `card` (white w/ 1px hairline + soft inset shadow), `feature` (gradient mesh w/ mint glow). No flat grey rectangles.
+- **Micro-motion**: 250ms ease-out entrance per card, number count-up on KPIs, hover lift on actionables. Never bouncy.
+- **Density**: airy on Pulse, dense on Studio (like Linear/Higgsfield).
+- **No purple gamification spam** — streaks/XP demoted to a single status pill in topbar.
+
+## 2. Information architecture (action-first, not metric-first)
+
+Sidebar restructured into 3 verbs the user comes back for:
 
 ```text
-┌───────────────────────────────────────────────────────────────┐
-│  ActivityMint  @handle  •  [7d|30d|90d]  •  Refresh  Upgrade │  Top bar
-├───────────────────────────────────────────────────────────────┤
-│  Profile header: avatar, @handle, followers, "Fresh insights" │  Hero strip
-├──────────────────────┬────────────────────────────────────────┤
-│  Sentiment Vibe      │  Audience Personas (3 cards)           │
-│  (dominant + bars)   │                                        │
-├──────────────────────┼────────────────────────────────────────┤
-│  Emotional Spectrum (sparkline + 4 emotion pills, wide)       │
-├──────────────────────┬────────────────────────────────────────┤
-│  Creative Catalysts  │  Top Performer (post + "why it worked")│
-│  (sticky-note ideas) │                                        │
-├──────────────────────┼────────────────────────────────────────┤
-│  Keyword/Hashtag Vibe Cloud (wide)                            │
-├──────────────────────┬────────────────────────────────────────┤
-│  Top Commenters      │  Interest Overlap (chip venn)          │
-│  (leaderboard)       │                                        │
-└──────────────────────┴────────────────────────────────────────┘
+CREATE          ← daily destination
+  Studio        (Higgsfield-style canvas: pick format → generate carousel/post)
+  Script Lab    (hooks, captions from brand voice)
+  Calendar      (queue + best-time slots)
+
+UNDERSTAND      ← the "why"
+  Pulse         (snapshot: 4 KPIs + 1 hero insight + today's action)
+  Audience      (personas, mood, active times)
+  Sentiment     (themes, quotes, vibe cloud)
+
+OUTPERFORM      ← competitive edge
+  Trends        (rising formats, hooks, sounds)
+  Ad Library    (competitor ads, locked = Pro)
+  Competitors   (locked = Pro)
 ```
 
-## What ships in v1
+Demoted: Rewards moves to a slim drawer (not a top-level pane).
 
-1. **Top bar** — logo mark, handle pill, timeline toggle (7d/30d/90d), Refresh button, Upgrade chip.
-2. **Profile header** — avatar, @handle, follower/post count, "Fresh insights for @…" tagline.
-3. **Sentiment Vibe card** — stacked bar (joy / curiosity / concern %), Dominant + Rising emotion tiles.
-4. **Audience Personas (3)** — avatar, persona name, age range + city, interest chips, loyalty bar.
-5. **Emotional Spectrum** — 7-day bar chart with 3 emotion colors, hover lift, day labels.
-6. **Creative Catalysts** — 3–4 sticky-note style AI post ideas (rotated cards, hover-to-straighten), each with "Best for: Engagement/Reach/Feedback".
-7. **Top Performer** — thumbnail + caption + sentiment bar + AI "why it worked" annotation.
-8. **Vibe Cloud** — keyword/hashtag chips at varied sizes/weights (one accent color for trending).
-9. **Top Commenters** — 4-column leaderboard, avatar + handle + comment count + rank color.
-10. **Interest Overlap** — simple chip-venn (3 overlapping circles with shared interest chips).
+## 3. New flagship: **Studio** (the Higgsfield-equivalent)
 
-Everything reads from a single mock data file so we can swap to real scraper data later without UI changes.
+The page that justifies daily return. Layout:
 
-## Design tokens (Minted Bento direction)
+```text
+┌─────────────────────────────────────────────────────────┐
+│  STUDIO · @studio_mint                          [Brand] │
+│                                                          │
+│  What are we making today?                              │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │ [+] Describe the post...                  [Gen→] │  │
+│  │  Format: Carousel ▾   Goal: Saves ▾   Tone: ▾   │  │
+│  └──────────────────────────────────────────────────┘  │
+│                                                          │
+│  Start from a winning recipe ↓                          │
+│  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐               │
+│  │ How │ │ B/A │ │Hook │ │Story│ │ Ad  │  ← framework  │
+│  │ -To │ │     │ │ +   │ │ arc │ │ rip │    cards w/   │
+│  │     │ │     │ │Proof│ │     │ │     │    mini doodle│
+│  └─────┘ └─────┘ └─────┘ └─────┘ └─────┘               │
+│                                                          │
+│  Pulled from your audience right now:                   │
+│  • "tutorial" mentions +40% → 3 idea cards             │
+│  • Thursday 7pm is your peak → schedule slot           │
+│  • Rival posted Reels 4× this week → counter-angle     │
+└─────────────────────────────────────────────────────────┘
+```
 
-Copy verbatim into `src/styles.css` (oklch equivalents of the prototype hexes):
+Below: **Generated posts grid** (carousel previews like Higgsfield's video grid), each with: thumbnail, predicted mint-impact score, "Schedule / Refine / Discard".
 
-- `--background` ≈ zinc-50 (#fafafa)
-- `--foreground` ≈ zinc-950 (#09090b)
-- `--primary` ≈ mint-500 (#14b8a6) / `--primary-foreground` white
-- `--accent` ≈ mint-50 (#f0fdfa)
-- `--card` white, `--muted` zinc-100, `--ring` mint-500/30
-- Custom: `--mint-950` (#042f2e) for dark catalyst panel, `--sticky-yellow` (#fef9c3), `--sticky-green` (#dcfce7), gradient mesh background var
-- Font: Geist via Google Fonts, loaded in `__root.tsx` head
-- Radii: cards `rounded-[24px]`, pills `rounded-full`, pricing/big surfaces `rounded-[32px]`
+## 4. Pulse redesign (Understand, not Brag)
 
-## Technical structure
+Replace the 4-tile metric wall with:
 
-- New route: replace placeholder `src/routes/index.tsx` → renders `<Dashboard />`.
-- `src/components/dashboard/` folder with one file per bento tile (TopBar, ProfileHeader, SentimentVibe, PersonaCard, EmotionalSpectrum, CreativeCatalysts, TopPerformer, VibeCloud, TopCommenters, InterestOverlap) + `Dashboard.tsx` composer.
-- `src/lib/mock-dashboard.ts` — typed mock data (handle, personas, sentiment buckets, posts, commenters, keywords).
-- Timeline toggle = local `useState` filtering the same mock dataset (different numbers per range).
-- `src/styles.css` extended with tokens + gradient-mesh keyframes + float animation.
-- Persona/commenter/post avatars: generate 6–8 small portrait images via image gen, save under `src/assets/avatars/`, import as ES6.
-- Top-performer post thumbnail: 1 generated image under `src/assets/posts/`.
-- `__root.tsx` head: update title/description to "Activity Mint — Fresh Instagram insights" and add Geist font preconnect + link tag.
+- **Headline card** (editorial hero): one sentence in serif — *"This week, your Reels are working. Saves are up 3.2× — your audience is asking to be taught."* + supporting sparkline.
+- **3 KPI chips** (small, secondary): Mint Score · Reach · Engagement — clickable to drill in.
+- **Today's move** (full-width action card): one specific thing to do today, with a "Do it in Studio →" CTA that deep-links into Studio prefilled.
+- **Brand DNA strip** (from screenshot 2): voice / visual / audience / cadence — but redesigned as horizontal editorial bars, not the busy 6-row layout.
 
-## Out of scope for this pass
+## 5. Component library additions
 
-- Landing hero with @handle input, pricing tiers, footer marketing (next pass).
-- Lovable Cloud / auth / DB persistence.
-- Real scraper integration and real Lovable AI calls.
-- Multi-account switching, search.
+- `EditorialHeader` — serif H1 + eyebrow + meta row
+- `InsightCard` — hero variant, supporting variant
+- `RecipeCard` — framework picker (Higgsfield-style)
+- `PostPreview` — carousel/reel thumbnail with score chip
+- `BrandDNAStrip` — compact horizontal version
+- `ActionBar` — sticky generate prompt
+- `KpiChip` — small interactive metric (replaces big KpiCards)
 
-Once you approve, I'll build straight through the file list above.
+## 6. Files
+
+**New routes/panes** (in `Dashboard.tsx` switch):
+- `src/components/dashboard/studio/Studio.tsx`
+- `src/components/dashboard/studio/RecipePicker.tsx`
+- `src/components/dashboard/studio/GenerateBar.tsx`
+- `src/components/dashboard/studio/PostPreviewGrid.tsx`
+- `src/components/dashboard/pulse/HeadlineInsight.tsx`
+- `src/components/dashboard/pulse/KpiChips.tsx`
+- `src/components/dashboard/pulse/TodaysMove.tsx`
+- `src/components/dashboard/pulse/BrandDNAStrip.tsx`
+- `src/components/dashboard/shared/EditorialHeader.tsx`
+- `src/components/dashboard/shared/SurfaceCard.tsx`
+
+**Edited:**
+- `src/components/dashboard/Dashboard.tsx` — new IA (Create/Understand/Outperform groups)
+- `src/components/dashboard/Sidebar.tsx` — grouped nav + demoted rewards
+- `src/components/dashboard/PaneHeader.tsx` — editorial restyle
+- `src/styles.css` — add serif font, surface tokens, mesh-gradient utility
+- `src/lib/mock-dashboard.ts` — add recipes, generated posts, today's move
+
+**Asset:**
+- 5 small framework doodles for `RecipeCard` (`@/assets/doodles/recipe-*.png`)
+
+## 7. Execution order (so you see progress fast)
+
+1. Tokens + typography in `styles.css` (serif + surfaces) — 1 batch
+2. Shared `EditorialHeader` + `SurfaceCard` + sidebar regroup
+3. **Pulse redesign** (headline + chips + today's move + brand DNA strip)
+4. **Studio pane** (the flagship — generate bar + recipes + post grid)
+5. Polish: micro-motion, mesh gradients, mock data wiring
+
+I'll ship in that order and stop after Studio for your review before touching Audience/Sentiment/Trends.
+
+---
+
+**Out of scope this round:** real AI generation, real scraping, payments. All Studio outputs are mocked previews — same approach Higgsfield uses for marketing screenshots.
