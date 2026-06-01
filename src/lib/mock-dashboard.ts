@@ -10,12 +10,205 @@ import topPost from "@/assets/posts/top-post.jpg";
 
 export type TimeRange = "7d" | "30d" | "90d";
 export type PaneKey =
+  | "studio"
+  | "scripts"
+  | "calendar"
   | "pulse"
   | "audience"
   | "content"
   | "sentiment"
+  | "trends"
+  | "adlib"
   | "competitors"
   | "rewards";
+
+/* ---------- Editorial headline (Pulse hero) ---------- */
+export const headlineInsight = {
+  eyebrow: "This week · @studio_mint",
+  headline: "Your Reels are working.",
+  body: "Saves are up 3.2× and the word \u201Ctutorial\u201D spiked +40% in your comments. Your audience isn\u2019t asking to be entertained \u2014 they\u2019re asking to be taught.",
+  proof: [
+    { label: "Saves", value: "+218%" },
+    { label: "Reach", value: "+22%" },
+    { label: "Mood", value: "78% positive" },
+  ],
+};
+
+/* ---------- Today's move (single CTA) ---------- */
+export const todaysMove = {
+  verdict: "Make one How-to Reel today.",
+  why: "Your last 3 Reels averaged 6.4% engagement \u2014 2.4× your photo posts. Thursday 7pm is open.",
+  cta: "Open in Studio",
+  recipeId: "howto",
+};
+
+/* ---------- Brand DNA (horizontal strip) ---------- */
+export const brandDNA = {
+  confidence: 88,
+  axes: [
+    { label: "Voice", value: "Authoritative", detail: "Direct, instructional", pct: 88 },
+    { label: "Visual", value: "Editorial", detail: "High-contrast monochrome", pct: 72 },
+    { label: "Audience", value: "Builders", detail: "Tech-curious 25\u201344", pct: 64 },
+    { label: "Cadence", value: "High-speed", detail: "12 / wk \u00B7 4.2% ER", pct: 92 },
+  ],
+};
+
+/* ---------- Studio: framework recipes ---------- */
+export type Recipe = {
+  id: string;
+  name: string;
+  beats: string[];
+  bestFor: string;
+  format: "Reel" | "Carousel" | "Photo" | "Story";
+  signal: string;
+  accent: "mint" | "amber" | "violet" | "coral" | "sky";
+};
+
+export const recipes: Recipe[] = [
+  {
+    id: "howto",
+    name: "How-To",
+    beats: ["Hook", "Promise", "3 Steps", "Soft CTA"],
+    bestFor: "Saves \u00B7 30\u201360s",
+    format: "Reel",
+    signal: "+3.2\u00D7 saves vs your avg",
+    accent: "mint",
+  },
+  {
+    id: "ba",
+    name: "Before \u2192 After",
+    beats: ["Mess", "Process", "Result"],
+    bestFor: "Reach \u00B7 15\u201330s",
+    format: "Reel",
+    signal: "Trending in your niche",
+    accent: "amber",
+  },
+  {
+    id: "hookproof",
+    name: "Hook + Proof",
+    beats: ["Bold claim", "Receipt", "Lesson"],
+    bestFor: "Shares \u00B7 Carousel",
+    format: "Carousel",
+    signal: "Rivals using 4\u00D7/wk",
+    accent: "violet",
+  },
+  {
+    id: "storyarc",
+    name: "Story Arc",
+    beats: ["Setup", "Tension", "Reveal", "Lesson"],
+    bestFor: "Comments \u00B7 45\u201390s",
+    format: "Reel",
+    signal: "Your audience: builders",
+    accent: "coral",
+  },
+  {
+    id: "adrip",
+    name: "Ad-Lib Rip",
+    beats: ["Their hook", "Your angle", "Your offer"],
+    bestFor: "Cold reach \u00B7 Reel",
+    format: "Reel",
+    signal: "From rival ad library",
+    accent: "sky",
+  },
+];
+
+/* ---------- Studio: generated post previews ---------- */
+export type GeneratedPost = {
+  id: string;
+  recipe: string;
+  format: "Reel" | "Carousel";
+  hook: string;
+  slides: { kicker: string; line: string }[];
+  score: number;
+  bestAt: string;
+  status: "fresh" | "scheduled" | "draft";
+};
+
+export const generatedPosts: GeneratedPost[] = [
+  {
+    id: "g1",
+    recipe: "How-To",
+    format: "Reel",
+    hook: "3 editing tricks I wish I knew sooner",
+    slides: [
+      { kicker: "00:00", line: "Stop using fade transitions." },
+      { kicker: "00:08", line: "Use J-cuts to tighten dialogue." },
+      { kicker: "00:18", line: "Color match in 4 clicks." },
+      { kicker: "00:28", line: "Save this for your next edit \u2192" },
+    ],
+    score: 94,
+    bestAt: "Thu 7\u201309pm",
+    status: "fresh",
+  },
+  {
+    id: "g2",
+    recipe: "Before \u2192 After",
+    format: "Reel",
+    hook: "From 200 to 14k views \u2014 one change",
+    slides: [
+      { kicker: "Before", line: "Photo, no hook, 1pm" },
+      { kicker: "Change", line: "Reel + 2s hook + 7pm" },
+      { kicker: "After", line: "14k reach, 8.9k saves" },
+    ],
+    score: 88,
+    bestAt: "Sun 8pm",
+    status: "draft",
+  },
+  {
+    id: "g3",
+    recipe: "Hook + Proof",
+    format: "Carousel",
+    hook: "Your audience is asking to be taught.",
+    slides: [
+      { kicker: "01", line: "\u201Ctutorial\u201D mentions \u2191 40%" },
+      { kicker: "02", line: "\u201Cwhat app/tool\u201D \u2191 28%" },
+      { kicker: "03", line: "Saves > likes = high intent" },
+      { kicker: "04", line: "Teach. Don\u2019t entertain." },
+    ],
+    score: 81,
+    bestAt: "Tue 6pm",
+    status: "fresh",
+  },
+  {
+    id: "g4",
+    recipe: "Story Arc",
+    format: "Reel",
+    hook: "I almost quit posting. Then this happened.",
+    slides: [
+      { kicker: "Setup", line: "Posted 90 days, no growth." },
+      { kicker: "Tension", line: "Switched to Reels only." },
+      { kicker: "Reveal", line: "+8.2k followers in 30 days." },
+    ],
+    score: 76,
+    bestAt: "Fri 8pm",
+    status: "fresh",
+  },
+];
+
+/* ---------- Studio: live signal pulled from audience ---------- */
+export const studioSignals = [
+  {
+    icon: "\u{1F4AC}",
+    label: "Audience asks",
+    body: "\u201Ctutorial\u201D mentions \u2191 40%",
+    action: "Use the How-To recipe",
+    recipe: "howto",
+  },
+  {
+    icon: "\u23F0",
+    label: "Peak window",
+    body: "Thursday 7\u20139pm is open",
+    action: "Schedule a slot",
+    recipe: "howto",
+  },
+  {
+    icon: "\u2694\uFE0F",
+    label: "Rival move",
+    body: "@rival posted 4 Reels this week",
+    action: "Counter with Ad-Lib Rip",
+    recipe: "adrip",
+  },
+];
 
 export const profileData = {
   handle: "studio_mint",
