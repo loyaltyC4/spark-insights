@@ -32,7 +32,7 @@ export function TopBar({ handle, range, onRangeChange, onQuickCreate }: Props) {
                 <span className="size-1.5 rounded-full bg-mint-500" title="Active" />
               </div>
               <div className="text-[10px] text-muted-foreground">
-                {profileData.followers} followers · Brand DNA
+                {profileData.followers.toLocaleString()} followers · Brand DNA
               </div>
             </div>
             <ChevronDown className="ml-1 size-3.5 text-muted-foreground" />
