@@ -10,16 +10,46 @@ import topPost from "@/assets/posts/top-post.jpg";
 
 export type TimeRange = "7d" | "30d" | "90d";
 export type PaneKey =
-  | "studio"
-  | "scripts"
-  | "calendar"
+  // Entry
+  | "briefing"
+  // Understand
   | "pulse"
   | "audience"
-  | "content"
-  | "sentiment"
-  | "trends"
-  | "adlib"
+  | "contentLab"
   | "competitors"
+  // Create
+  | "nextPost"
+  | "carousel"
+  | "video"
+  | "post"
+  | "campaign"
+  // Amplify
+  | "adIntel"
+  | "scriptStudio"
+  | "automation"
+  // Free tools — Instagram
+  | "tool_ig_story"
+  | "tool_ig_post"
+  | "tool_ig_highlights"
+  | "tool_ig_likes"
+  | "tool_ig_followers"
+  | "tool_ig_unfollow"
+  | "tool_ig_comments"
+  | "tool_ig_export"
+  // Free tools — Platforms
+  | "tool_tiktok"
+  | "tool_facebook"
+  | "tool_linkedin"
+  | "tool_yt"
+  | "tool_threads"
+  // Free tools — Utilities
+  | "tool_hashtags"
+  | "tool_shadowban"
+  // Settings
+  | "settings"
+  // Legacy (kept for compat with existing components)
+  | "studio"
+  | "sentiment"
   | "rewards";
 
 /* ---------- Editorial headline (Pulse hero) ---------- */
